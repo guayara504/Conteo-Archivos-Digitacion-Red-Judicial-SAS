@@ -8,22 +8,22 @@ a = "YA.pdf"
 b = "ya.pdf"
 c = ".pdf"
 count=0
-departamentos = ["AMAZONAS","ANTIOQUIA","ARAUCA","ATLANTICO","BOLIVAR","BOYACA","CALDAS","CAQUETA",
-                 "CASANARE","CAUCA","CESAR","CHOCO","CORDOBA","CUNDINAMARCA","GUAINIA","GUAVIARE",
-                 "HUILA","LA GUAJIRA","MAGDALENA","META","NARINO","NORTE DE SANTANDER","PUTUMAYO",
-                 "QUINDIO","RISARALDA","SAN ANDRES Y PROVIDENCIA","SANTANDER","SUCRE","TOLIMA",
-                 "VALLE DEL CAUCA","VAUPES",]
+
 
 print("----------------------\nEstados:\n----------------------")
 
 
 for archivo in glob.glob(ruta+"\\**", recursive=True):
     if (a not in archivo and b not in archivo and c in archivo):
-        if archivo in departamentos:
-            
         print(archivo[49:])
         count+=1
           
 print("\n----------------------\nArchivos Restantes: ",count)
 msvcrt.getch()
 print("PULSE UNA TECLA PARA CERRAR...")
+
+#departamentos = ["AMAZONAS","ANTIOQUIA","ARAUCA","ATLANTICO","BOLIVAR","BOYACA","CALDAS","CAQUETA",
+ #                "CASANARE","CAUCA","CESAR","CHOCO","CORDOBA","CUNDINAMARCA","GUAINIA","GUAVIARE",
+  #               "HUILA","LA GUAJIRA","MAGDALENA","META","NARINO","NORTE DE SANTANDER","PUTUMAYO",
+   #              "QUINDIO","RISARALDA","SAN ANDRES Y PROVIDENCIA","SANTANDER","SUCRE","TOLIMA",
+    #             "VALLE DEL CAUCA","VAUPES",]
