@@ -1,29 +1,39 @@
-import glob,time,msvcrt
+import glob,time,msvcrt,operator
+from collections import Counter
 archivos=[]
-palabra="ya.pdf"
-palabra3=".png"
 ruta = input("INGRESE LA RUTA: ")
 
 a = "YA.pdf"
 b = "ya.pdf"
 c = ".pdf"
-count=0
+total=0
+departamentos = []
 
 
-print("----------------------\nEstados:\n----------------------")
+print("----------------------\nESTADOS\n----------------------")
 
 
 for archivo in glob.glob(ruta+"\\**", recursive=True):
     if (a not in archivo and b not in archivo and c in archivo):
         print(archivo[49:])
-        count+=1
+        departamentos.append(archivo.split("\\")[8])
+        total+=1
           
-print("\n----------------------\nArchivos Restantes: ",count)
-msvcrt.getch()
-print("PULSE UNA TECLA PARA CERRAR...")
+conteo=Counter(departamentos)
 
-#departamentos = ["AMAZONAS","ANTIOQUIA","ARAUCA","ATLANTICO","BOLIVAR","BOYACA","CALDAS","CAQUETA",
- #                "CASANARE","CAUCA","CESAR","CHOCO","CORDOBA","CUNDINAMARCA","GUAINIA","GUAVIARE",
-  #               "HUILA","LA GUAJIRA","MAGDALENA","META","NARINO","NORTE DE SANTANDER","PUTUMAYO",
-   #              "QUINDIO","RISARALDA","SAN ANDRES Y PROVIDENCIA","SANTANDER","SUCRE","TOLIMA",
-    #             "VALLE DEL CAUCA","VAUPES",]
+print("\n----------------------\nARCHIVOS RESTANTES \n----------------------")
+resultado={}
+for clave in conteo:  
+    valor=conteo[clave]
+    if valor != 0:
+        resultado[clave] = valor
+
+resultado_sort = dict(sorted(resultado.items(),key=operator.itemgetter(1),reverse=True))
+
+for result in resultado_sort:
+    print(result+":",resultado_sort[result])
+
+print("\n----------------------\nTOTAL:",total,"\n----------------------")
+
+print("\nPULSE UNA TECLA PARA CERRAR...")
+msvcrt.getch()
