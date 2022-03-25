@@ -1,39 +1,54 @@
 import glob,time,msvcrt,operator
+from multiprocessing import Condition
 from collections import Counter
-archivos=[]
-ruta = input("INGRESE LA RUTA: ")
+import os
+ubicacion = int(input("\n1.Dia\n2.Ubicacion Personalizada\nIngrese: "))
 
+archivos=[]
+
+if ubicacion == 1:
+    ano= input("Ingrese año: ")
+    mes= input("Ingrese mes: ")
+    dia= input("Ingrese dia: ")
+    ruta = "\\\TRUENAS\\RedjudicialN1\\Redjudicial_estados\\"+ano+"\\"+mes+"\\"+dia+"\\"
+else:
+    ruta = input("Ingrese la ruta: ")
 a = "YA.pdf"
 b = "ya.pdf"
 c = ".pdf"
-total=0
-departamentos = []
+condicion = 1
+while condicion == 1:
+    total=0
+    departamentos = []
 
 
-print("----------------------\nESTADOS\n----------------------")
+    print("----------------------\nESTADOS\n----------------------")
 
 
-for archivo in glob.glob(ruta+"\\**", recursive=True):
-    if (a not in archivo and b not in archivo and c in archivo):
-        print(archivo[49:])
-        departamentos.append(archivo.split("\\")[8])
-        total+=1
-          
-conteo=Counter(departamentos)
+    for archivo in glob.glob(ruta+"\\**", recursive=True):
+        if (a not in archivo and b not in archivo and c in archivo):
+            print(archivo[49:])
+            departamentos.append(archivo.split("\\")[8])
+            total+=1
+            
+    conteo=Counter(departamentos)
 
-print("\n----------------------\nARCHIVOS RESTANTES \n----------------------")
-resultado={}
-for clave in conteo:  
-    valor=conteo[clave]
-    if valor != 0:
-        resultado[clave] = valor
+    print("\n----------------------\nARCHIVOS RESTANTES \n----------------------")
+    resultado={}
+    for clave in conteo:  
+        valor=conteo[clave]
+        if valor != 0:
+            resultado[clave] = valor
 
-resultado_sort = dict(sorted(resultado.items(),key=operator.itemgetter(1),reverse=True))
+    resultado_sort = dict(sorted(resultado.items(),key=operator.itemgetter(1),reverse=True))
 
-for result in resultado_sort:
-    print(result+":",resultado_sort[result])
+    for result in resultado_sort:
+        print(result+":",resultado_sort[result])
 
-print("\n----------------------\nTOTAL:",total,"\n----------------------")
+    print("\n----------------------\nTOTAL:",total,"\n----------------------")
+    condicion =int(input("\n1.Reiniciar\n2.Cerrar\nIngrese: "))
+    os.system ("cls")
+
 
 print("\nPULSE UNA TECLA PARA CERRAR...")
 msvcrt.getch()
